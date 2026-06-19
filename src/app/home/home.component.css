@@ -13,24 +13,34 @@
   height: 44px;
 }
 
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #f14f4f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .loading-container {
   min-height: calc(100vh - 72px);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 16px;
-
-  background: #f7f8fa;
+  background: #faf7f7;
 }
 
 .loading-container p {
   margin: 0;
-
   color: #6b7280;
-
   font-size: 14px;
   font-weight: 500;
 }
