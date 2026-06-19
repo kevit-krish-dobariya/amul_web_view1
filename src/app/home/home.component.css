@@ -13,6 +13,28 @@
   height: 44px;
 }
 
+.loading-container {
+  min-height: calc(100vh - 72px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  background: #f7f8fa;
+}
+
+.loading-container p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .section-header {
   max-width: 1100px;
   margin: 28px auto;

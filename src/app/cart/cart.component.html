@@ -2,6 +2,12 @@
   <img src="assets/amul-logo.png" alt="Amul" class="amul-logo" />
 </header>
 
+<div class="loading-container" *ngIf="isLoading">
+  <span class="spinner"></span>
+
+  <p>Loading Order Details...</p>
+</div>
+
 <div *ngIf="!isLoading">
   <div class="cart-header">
     <h1 class="cart-title">Order Summary</h1>
@@ -30,11 +36,11 @@
             {{ item.unitSize || "-" }}
           </td>
 
-          <td class="center">
+          <td>
             {{ item.qty.loose }}
           </td>
 
-          <td class="center">
+          <td>
             {{ item.qty.box }}
           </td>
 

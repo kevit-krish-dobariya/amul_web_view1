@@ -7,6 +7,12 @@
   <p class="section-subtitle">Add quantities to continue</p>
 </div>
 
+<div class="loading-container" *ngIf="isLoading">
+  <span class="spinner"></span>
+
+  <p>Loading Order Details...</p>
+</div>
+
 <div class="empty-cart" *ngIf="!isLoading && !products?.length">
   <div class="empty-cart-icon">
     <mat-icon>shopping_cart</mat-icon>
