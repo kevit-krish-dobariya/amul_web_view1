@@ -1,0 +1,267 @@
+.amul-navbar {
+  height: 68px;
+  background: #ed1c24;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.amul-logo {
+  height: 42px;
+}
+
+.cart-header {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.cart-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cart-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.table-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.cart-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.cart-table thead {
+  background: #ed1c24;
+}
+
+.cart-table th {
+  padding: 18px 16px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.cart-table td {
+  padding: 18px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #111827;
+  font-size: 14px;
+}
+
+.cart-table tbody tr:hover {
+  background: #fff7f7;
+}
+
+.product-name-cell {
+  font-weight: 600;
+}
+
+.center {
+  text-align: center;
+}
+
+.amount-cell {
+  color: #ed1c24;
+  font-weight: 700;
+}
+
+.cart-table tfoot {
+  background: #fafafa;
+}
+
+.cart-table tfoot td {
+  font-weight: 700;
+}
+
+.grand-total {
+  color: #ed1c24;
+  font-size: 18px;
+}
+
+.summary-card {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary-item span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.summary-item strong {
+  margin-top: 4px;
+
+  font-size: 22px;
+  color: #111827;
+}
+
+.summary-item .amount {
+  color: #ed1c24;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background: #e5e7eb;
+}
+
+.cart-actions {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 16px 100px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.submit-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px;
+  background: white;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 16px;
+  background: #ed1c24;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  cursor: pointer;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+}
+
+.submit-btn mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cart-title {
+    font-size: 18px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .cart-subtitle {
+    font-size: 12px;
+  }
+
+  .summary-card {
+    gap: 20px;
+  }
+
+  .summary-item strong {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .amul-navbar {
+    height: 68px;
+  }
+
+  .amul-logo {
+    height: 34px;
+  }
+
+  .summary-card {
+    margin: 16px;
+
+    padding: 16px;
+  }
+
+  .summary-item strong {
+    font-size: 16px;
+  }
+
+  .submit-btn {
+    height: 50px;
+    font-size: 15px;
+  }
+}

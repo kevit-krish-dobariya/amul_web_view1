@@ -1,0 +1,89 @@
+<header class="amul-navbar">
+  <img src="assets/amul-logo.png" alt="Amul" class="amul-logo" />
+</header>
+
+<div *ngIf="!isLoading">
+  <div class="cart-header">
+    <h1 class="cart-title">Order Summary</h1>
+    <p class="cart-subtitle">Review your selected products</p>
+  </div>
+
+  <div class="table-container">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Unit Size</th>
+          <th>Loose Qty</th>
+          <th>Carton Qty</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of getCartItems()">
+          <td class="product-name-cell">
+            {{ item.name }}
+          </td>
+
+          <td>
+            {{ item.unitSize || "-" }}
+          </td>
+
+          <td class="center">
+            {{ item.qty.loose }}
+          </td>
+
+          <td class="center">
+            {{ item.qty.box }}
+          </td>
+
+          <td class="amount-cell">₹{{ getItemTotal(item) }}</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="4">Total Amount</td>
+
+          <td class="grand-total">₹{{ getTotal() }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-item">
+      <span>Total Items</span>
+      <strong>{{ getTotalItems() }}</strong>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-item">
+      <span>Total Amount</span>
+      <strong class="amount"> ₹{{ getTotal() }} </strong>
+    </div>
+  </div>
+
+  <div class="cart-actions">
+    <button class="back-btn" routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+  </div>
+
+  <div class="submit-footer">
+    <button class="submit-btn" [disabled]="isSubmitting" (click)="onSubmit()">
+      <ng-container *ngIf="!isSubmitting">
+        Place Order
+        <mat-icon>chevron_right</mat-icon>
+      </ng-container>
+
+      <ng-template #loading>
+        <span class="spinner"></span>
+        Processing...
+      </ng-template>
+    </button>
+  </div>
+</div>

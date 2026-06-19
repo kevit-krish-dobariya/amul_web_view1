@@ -1,0 +1,151 @@
+<header class="amul-navbar">
+  <img src="assets/amul-logo.png" alt="Amul" class="amul-logo" />
+</header>
+
+<div class="section-header" *ngIf="products?.length">
+  <h1 class="section-title">Your Products</h1>
+  <p class="section-subtitle">Add quantities to continue</p>
+</div>
+
+<div class="empty-cart" *ngIf="!isLoading && !products?.length">
+  <div class="empty-cart-icon">
+    <mat-icon>shopping_cart</mat-icon>
+  </div>
+  <h2>Your Cart is Empty</h2>
+  <p>No products have been added yet.</p>
+</div>
+
+<div class="product-list" *ngIf="!isLoading && products?.length">
+  <div class="product-card" *ngFor="let product of products">
+    <div class="product-top">
+      <div class="product-image-wrapper">
+        <img [src]="product.image" class="product-image" [alt]="product.name" />
+      </div>
+
+      <div class="product-content">
+        <div class="product-header">
+          <div class="product-title-section">
+            <h3 class="product-name">
+              {{ product.name }}
+            </h3>
+            <span class="product-unit" *ngIf="product.unitSize">
+              {{ product.unitSize }}
+            </span>
+          </div>
+          <button class="remove-product-btn" (click)="openRemoveModal(product)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div class="variant-row">
+          <div class="variant-info">
+            <span class="variant-label"> Loose Price </span>
+            <span class="variant-price"> ₹{{ product.price.loose }} </span>
+          </div>
+
+          <div class="qty-control">
+            <button
+              [disabled]="product.qty.loose === 0"
+              (click)="removeQty(product, 'loose')"
+            >
+              −
+            </button>
+
+            <span>
+              {{ product.qty.loose }}
+            </span>
+
+            <button (click)="addQty(product, 'loose')">+</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="variant-row">
+          <div class="variant-info">
+            <span class="variant-label"> Carton Price </span>
+
+            <span class="variant-price"> ₹{{ product.price.box }} </span>
+          </div>
+
+          <div class="qty-control">
+            <button
+              [disabled]="product.qty.box === 0"
+              (click)="removeQty(product, 'box')"
+            >
+              −
+            </button>
+
+            <span>
+              {{ product.qty.box }}
+            </span>
+
+            <button (click)="addQty(product, 'box')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cart-bar" *ngIf="products?.length && getTotalItems()">
+  <div class="summary-left">
+    <div class="summary-icon-box">
+      <span class="summary-icon"
+        ><mat-icon class="shopping-icon">local_mall</mat-icon></span
+      >
+    </div>
+
+    <div class="summary-block">
+      <span>Total Items</span>
+      <strong>
+        {{ getTotalItems() }}
+      </strong>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-block">
+      <span>Total Amount</span>
+      <strong> ₹{{ getTotal() }} </strong>
+    </div>
+  </div>
+
+  <button class="continue-btn" (click)="goToCart()">
+    <span>Continue</span>
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+
+<div class="modal-backdrop" *ngIf="showRemoveModal">
+  <div class="remove-modal">
+    <div class="modal-header">
+      <div class="modal-content">
+        <div class="modal-heading">
+          <div class="modal-trash">
+            <mat-icon>remove_shopping_cart</mat-icon>
+          </div>
+          <h3 class="modal-title">Remove Product</h3>
+        </div>
+        <p class="modal-message">
+          Are you sure you want to remove
+          <strong>{{ selectedProduct?.name }}</strong>
+          from your cart?
+        </p>
+
+        <p class="modal-note">
+          <mat-icon>info</mat-icon>
+          Once removed, this product cannot be added again in the current cart.
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="closeRemoveModal()">Cancel</button>
+
+      <button class="confirm-remove-btn" (click)="confirmRemove()">
+        Remove
+      </button>
+    </div>
+  </div>
+</div>
