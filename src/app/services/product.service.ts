@@ -82,33 +82,26 @@ export class ProductService {
         const fullName = item.product_name || '';
 
         const sizeMatch = fullName.match(
-          /(\d+(\.\d+)?\s?(kg|g|gm|ml|ltr|l|pcs|pc|pack))$/i,
+          /((?:\d+x)*\d+(?:\.\d+)?\s?(?:kg|g|gm|ml|ltr|l)(?:\s*CP)?)$/i,
         );
 
-        const unitSize = sizeMatch?.[0] || '';
+        const unitSize = sizeMatch?.[1] || '';
 
-        const productName = unitSize
-          ? fullName.replace(unitSize, '').trim()
-          : fullName;
+        const productName = fullName.replace(sizeMatch?.[0] || '', '').trim();
 
         return {
           id: item.product_code,
           name: productName,
-          image: 'assets/products/amul_wheat.webp',
+          image: item.product_image,
           unitSize,
           piecesPerBox: 24,
           price: {
             loose: Number(item.rate || 0),
-            // temporary until backend provides box price
-            box: 100 * 24,
           },
 
           qty: {
             // API only provides ordered_qty
             loose: Number(item.ordered_qty || 0),
-
-            // temporary until backend provides box qty
-            box: 0,
           },
         };
       }) || [];
@@ -140,7 +133,7 @@ export class ProductService {
   // QUANTITY HELPERS
   // =================================
 
-  getQty(productId: string, type: 'loose' | 'box'): number {
+  getQty(productId: string, type: 'loose'): number {
     const product = this.products.find((p) => p.id === productId);
 
     return product ? product.qty[type] : 0;
@@ -152,26 +145,20 @@ export class ProductService {
 
   getTotalItems(): number {
     return this.products.reduce(
-      (total, product) => total + product.qty.loose + product.qty.box,
+      (total, product) => total + product.qty.loose,
       0,
     );
   }
 
   getTotalAmount(): number {
     return this.products.reduce(
-      (total, product) =>
-        total +
-        product.qty.loose * product.price.loose +
-        product.qty.box * product.price.box,
+      (total, product) => total + product.qty.loose * product.price.loose,
       0,
     );
   }
 
   getProductTotal(product: Product): number {
-    return (
-      product.qty.loose * product.price.loose +
-      product.qty.box * product.price.box
-    );
+    return product.qty.loose * product.price.loose;
   }
 
   clearOrderContext(): void {
@@ -210,7 +197,7 @@ export class ProductService {
       order_id: this.orderInfo.orderId,
       products: this.products.map((product) => ({
         product_code: product.id,
-        ordered_qty: product.qty.loose + product.qty.box,
+        ordered_qty: product.qty.loose,
       })),
     };
     console.log('PAYLOAD', payload);

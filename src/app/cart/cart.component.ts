@@ -46,20 +46,16 @@ export class CartComponent implements OnInit {
   }
 
   getCartItems(): Product[] {
-    return this.products.filter((p) => p.qty.loose > 0 || p.qty.box > 0);
+    return this.products.filter((p) => p.qty.loose > 0);
   }
 
   getItemTotal(product: Product): number {
-    return (
-      product.qty.loose * product.price.loose +
-      product.qty.box * product.price.box
-    );
+    return product.qty.loose * product.price.loose;
   }
 
   getTotal(): number {
     return this.products.reduce(
-      (total, p) =>
-        total + p.qty.loose * p.price.loose + p.qty.box * p.price.box,
+      (total, p) => total + p.qty.loose * p.price.loose,
       0,
     );
   }

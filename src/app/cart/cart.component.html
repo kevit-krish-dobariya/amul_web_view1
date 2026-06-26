@@ -4,7 +4,6 @@
 
 <div class="loading-container" *ngIf="isLoading">
   <span class="spinner"></span>
-
   <p>Loading Order Details...</p>
 </div>
 
@@ -18,17 +17,16 @@
     <table class="cart-table">
       <thead>
         <tr>
-          <th>Product</th>
+          <th colspan="2">Product</th>
           <th>Unit Size</th>
           <th>Loose Qty</th>
-          <th>Carton Qty</th>
           <th>Amount</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let item of getCartItems()">
-          <td class="product-name-cell">
+          <td colspan="2" class="product-name-cell">
             {{ item.name }}
           </td>
 
@@ -40,11 +38,7 @@
             {{ item.qty.loose }}
           </td>
 
-          <td>
-            {{ item.qty.box }}
-          </td>
-
-          <td class="amount-cell">₹{{ getItemTotal(item) }}</td>
+          <td class="amount-cell">₹ {{ getItemTotal(item) }}</td>
         </tr>
       </tbody>
 
@@ -52,7 +46,7 @@
         <tr>
           <td colspan="4">Total Amount</td>
 
-          <td class="grand-total">₹{{ getTotal() }}</td>
+          <td class="grand-total">₹ {{ getTotal() }}</td>
         </tr>
       </tfoot>
     </table>
@@ -68,7 +62,7 @@
 
     <div class="summary-item">
       <span>Total Amount</span>
-      <strong class="amount"> ₹{{ getTotal() }} </strong>
+      <strong class="amount"> ₹ {{ getTotal() }} </strong>
     </div>
   </div>
 

@@ -66,29 +66,6 @@
         </div>
 
         <div class="divider"></div>
-
-        <div class="variant-row">
-          <div class="variant-info">
-            <span class="variant-label"> Carton Price </span>
-
-            <span class="variant-price"> ₹{{ product.price.box }} </span>
-          </div>
-
-          <div class="qty-control">
-            <button
-              [disabled]="product.qty.box === 0"
-              (click)="removeQty(product, 'box')"
-            >
-              −
-            </button>
-
-            <span>
-              {{ product.qty.box }}
-            </span>
-
-            <button (click)="addQty(product, 'box')">+</button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -113,7 +90,7 @@
 
     <div class="summary-block">
       <span>Total Amount</span>
-      <strong> ₹{{ getTotal() }} </strong>
+      <strong> ₹ {{ getTotal() }} </strong>
     </div>
   </div>
 

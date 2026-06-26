@@ -6,10 +6,8 @@ export interface Product {
   image: string;
   price: {
     loose: number;
-    box: number;
   };
   qty: {
     loose: number;
-    box: number;
   };
 }

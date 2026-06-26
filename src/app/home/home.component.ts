@@ -57,13 +57,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  addQty(product: Product, type: 'loose' | 'box'): void {
+  addQty(product: Product, type: 'loose'): void {
     product.qty[type]++;
 
     this.productService.updateProducts(this.products);
   }
 
-  removeQty(product: Product, type: 'loose' | 'box'): void {
+  removeQty(product: Product, type: 'loose'): void {
     if (product.qty[type] > 0) {
       product.qty[type]--;
 
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   }
 
   isInvalid(product: Product): boolean {
-    return product.qty.loose === 0 && product.qty.box === 0;
+    return product.qty.loose === 0;
   }
 
   goToCart(): void {
