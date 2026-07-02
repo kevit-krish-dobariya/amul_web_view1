@@ -23,6 +23,40 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
   ) {}
 
+  // ngOnInit(): void {
+  //   const params = this.route.snapshot.queryParams;
+
+  //   const contactNumber =
+  //     params['contactNumber'] || this.productService.getContactNumber();
+
+  //   const orderId = params['orderId'] || this.productService.getOrderId();
+
+  //   if (contactNumber) {
+  //     this.productService.setContactNumber(contactNumber);
+  //   }
+
+  //   if (orderId) {
+  //     this.productService.setOrderId(orderId);
+
+  //     this.isLoading = true;
+
+  //     this.productService.getOrder(orderId).subscribe({
+  //       next: (response) => {
+  //         console.log('ORDER RESPONSE', response);
+  //         this.products = this.productService.mapOrderProducts(response);
+  //         this.isLoading = false;
+  //       },
+
+  //       error: (error) => {
+  //         console.error('Failed to fetch order', error);
+  //         this.isLoading = false;
+  //       },
+  //     });
+  //   } else {
+  //     this.isLoading = false;
+  //   }
+  // }
+
   ngOnInit(): void {
     const params = this.route.snapshot.queryParams;
 
@@ -43,7 +77,28 @@ export class HomeComponent implements OnInit {
       this.productService.getOrder(orderId).subscribe({
         next: (response) => {
           console.log('ORDER RESPONSE', response);
+
           this.products = this.productService.mapOrderProducts(response);
+
+          // Apply updated quantities from localStorage
+          const savedPayload = localStorage.getItem(
+            'amul_update_order_payload',
+          );
+
+          if (savedPayload) {
+            const { products: updatedProducts } = JSON.parse(savedPayload);
+
+            this.products.forEach((product) => {
+              const updated = updatedProducts.find(
+                (p: any) => p.product_code === product.id,
+              );
+
+              if (updated) {
+                product.qty.loose = updated.ordered_qty;
+              }
+            });
+          }
+
           this.isLoading = false;
         },
 

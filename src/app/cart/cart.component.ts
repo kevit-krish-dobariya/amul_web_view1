@@ -24,6 +24,28 @@ export class CartComponent implements OnInit {
     private http: HttpClient,
   ) {}
 
+  // ngOnInit(): void {
+  //   const orderId = this.productService.getOrderId();
+
+  //   if (!orderId) {
+  //     console.error('Order ID not found');
+  //     this.isLoading = false;
+  //     return;
+  //   }
+
+  //   this.productService.getOrder(orderId).subscribe({
+  //     next: (response) => {
+  //       console.log('PRDOOOOOOOOOOOOO', JSON.stringify(response, null, 2));
+  //       this.products = this.productService.mapOrderProducts(response);
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Failed to fetch order', error);
+  //       this.isLoading = false;
+  //     },
+  //   });
+  // }
+
   ngOnInit(): void {
     const orderId = this.productService.getOrderId();
 
@@ -35,7 +57,27 @@ export class CartComponent implements OnInit {
 
     this.productService.getOrder(orderId).subscribe({
       next: (response) => {
+        console.log('PRDOOOOOOOOOOOOO', JSON.stringify(response, null, 2));
+
         this.products = this.productService.mapOrderProducts(response);
+
+        // Get updated quantities from localStorage
+        const savedOrder = localStorage.getItem('amul_update_order_payload');
+
+        if (savedOrder) {
+          const updatedPayload = JSON.parse(savedOrder);
+
+          this.products.forEach((product) => {
+            const updatedProduct = updatedPayload.products.find(
+              (p: any) => p.product_code === product.id,
+            );
+
+            if (updatedProduct) {
+              product.qty.loose = updatedProduct.ordered_qty;
+            }
+          });
+        }
+
         this.isLoading = false;
       },
       error: (error) => {

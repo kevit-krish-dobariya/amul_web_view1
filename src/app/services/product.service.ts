@@ -192,6 +192,24 @@ export class ProductService {
     });
   }
 
+  // updateOrder() {
+  //   const payload = {
+  //     order_id: this.orderInfo.orderId,
+  //     products: this.products.map((product) => ({
+  //       product_code: product.id,
+  //       ordered_qty: product.qty.loose,
+  //     })),
+  //   };
+  //   console.log('PAYLOAD', payload);
+
+  //   return this.http.put(UPDATE_ORDER_URL, payload, {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${API_TOKEN}`,
+  //     }),
+  //   });
+  // }
+
   updateOrder() {
     const payload = {
       order_id: this.orderInfo.orderId,
@@ -200,7 +218,11 @@ export class ProductService {
         ordered_qty: product.qty.loose,
       })),
     };
+
     console.log('PAYLOAD', payload);
+
+    // Save update payload in localStorage
+    localStorage.setItem('amul_update_order_payload', JSON.stringify(payload));
 
     return this.http.put(UPDATE_ORDER_URL, payload, {
       headers: new HttpHeaders({
